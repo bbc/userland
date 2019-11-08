@@ -56,6 +56,10 @@
 #include <stdint.h>
 #include <string.h>
 
+#ifdef __bitwise
+#undef __bitwise
+#endif
+
 #ifdef __CHECKER__
 #define __force __attribute__((force))
 #define __bitwise __attribute__((bitwise))

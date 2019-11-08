@@ -93,6 +93,14 @@ typedef EGLImageKHR (EGLAPIENTRYP PFNEGLCREATEIMAGEKHRPROC) (EGLDisplay dpy, EGL
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLDESTROYIMAGEKHRPROC) (EGLDisplay dpy, EGLImageKHR image);
 #endif
 
+#ifndef EGL_IMG_context_priority
+#define EGL_IMG_context_priority 1
+#define EGL_CONTEXT_PRIORITY_LEVEL_IMG		0x3102
+#define EGL_CONTEXT_PRIORITY_HIGH_IMG		0x3101
+#define EGL_CONTEXT_PRIORITY_MEDIUM_IMG		0x3102
+#define EGL_CONTEXT_PRIORITY_LOW_IMG		0x3103
+#endif /* EGL_IMG_context_priority */
+
 #ifndef EGL_KHR_vg_parent_image
 #define EGL_KHR_vg_parent_image 1
 #define EGL_VG_PARENT_IMAGE_KHR			0x30BA	/* eglCreateImageKHR target */
@@ -188,6 +196,33 @@ typedef EGLBoolean (EGLAPIENTRYP PFNEGLDESTROYSYNCKHRPROC) (EGLDisplay dpy, EGLS
 typedef EGLint (EGLAPIENTRYP PFNEGLCLIENTWAITSYNCKHRPROC) (EGLDisplay dpy, EGLSyncKHR sync, EGLint flags, EGLTimeKHR timeout);
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLSIGNALSYNCKHRPROC) (EGLDisplay dpy, EGLSyncKHR sync, EGLenum mode);
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLGETSYNCATTRIBKHRPROC) (EGLDisplay dpy, EGLSyncKHR sync, EGLint attribute, EGLint *value);
+#endif
+
+#ifndef EGL_KHR_uint64_typedef
+#define EGL_KHR_uint64_typedef 1
+typedef khronos_uint64_t EGLuint64KHR;
+#endif /* EGL_KHR_uint64_typedef */
+
+#ifndef EGL_WL_bind_wayland_display
+#define EGL_WL_bind_wayland_display 1
+
+#define EGL_WAYLAND_BUFFER_WL		0x31D5 /* eglCreateImageKHR target */
+#define EGL_WAYLAND_PLANE_WL		0x31D6 /* eglCreateImageKHR target */
+#define EGL_TEXTURE_Y_U_V_WL            0x31D7
+#define EGL_TEXTURE_Y_UV_WL             0x31D8
+#define EGL_TEXTURE_Y_XUXV_WL           0x31D9
+
+struct wl_display;
+struct wl_resource;
+#ifdef EGL_EGLEXT_PROTOTYPES
+EGLAPI EGLBoolean EGLAPIENTRY eglBindWaylandDisplayWL(EGLDisplay dpy, struct wl_display *display);
+EGLAPI EGLBoolean EGLAPIENTRY eglUnbindWaylandDisplayWL(EGLDisplay dpy, struct wl_display *display);
+EGLAPI EGLBoolean EGLAPIENTRY eglQueryWaylandBufferWL(EGLDisplay dpy, struct wl_resource *buffer, EGLint attribute, EGLint *value);
+#endif
+typedef EGLBoolean (EGLAPIENTRYP PFNEGLBINDWAYLANDDISPLAYWL) (EGLDisplay dpy, struct wl_display *display);
+typedef EGLBoolean (EGLAPIENTRYP PFNEGLUNBINDWAYLANDDISPLAYWL) (EGLDisplay dpy, struct wl_display *display);
+typedef EGLBoolean (EGLAPIENTRYP PFNEGLQUERYWAYLANDBUFFERWL) (EGLDisplay dpy, struct wl_resource *buffer, EGLint attribute, EGLint *value);
+
 #endif
 
 
